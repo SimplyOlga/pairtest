@@ -2,7 +2,7 @@ const feedbacks = [];
 let counterId = 1;
 // ADD ONE
 function addOne(sender, message, rating, platform) {
-  const unit = {
+  const newFeedback = {
     id: counterId++,
     sender,
     message,
@@ -10,9 +10,9 @@ function addOne(sender, message, rating, platform) {
     platform
   };
 
-  feedbacks.push(unit);
+  feedbacks.push(newFeedback);
 
-  return unit;
+  return newFeedback;
 };
 
 
@@ -20,11 +20,53 @@ function addOne(sender, message, rating, platform) {
 function getAll() {
   return feedbacks;
 }
+// FIND BY ID
+function findById(id) {
+  const feedback = feedbacks.find((target) => target.id == id);
+
+  if (feedback) {
+    return feedback;
+  }
+  
+  return false;
+  
+  
+}
+
+// UPDATE PARTIALLY
+function update(id, stat) {
+  const target = findById(id);
+  if (target) {
+    if (stat.sender) {
+      target.sender = stat.sender;
+    }
+    if (stat.message) {
+      target.message = stat.message;
+    }
+    
+    if (stat.rating) {
+      target.rating = stat.rating;
+    }
+    
+    if (stat.platform) {
+      target.platform = stat.platform;
+    }
+    
+    return target;
+  }
+  return false;
+
+}
 
 module.exports = {
   addOne,
   getAll,
+  findById,
+  update
+
 };
+
+
 
 addOne("John Smith", "Great session!", 5, "mobile");
 addOne("Anna Brown", "Very useful examples.", 4, "desktop");
