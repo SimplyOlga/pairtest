@@ -29,8 +29,22 @@ function findById(id) {
   }
   
   return false;
-  
-  
+}
+
+function deleteOneById(id) {
+  const feedback = findById(id);
+
+  if (feedback) {
+    const initialLength = feedbacks.length;
+
+    feedbacks = feedbacks.filter(
+      (item) => item.id != id
+    );
+
+    return feedbacks.length < initialLength;
+  }
+
+  return false;
 }
 
 // UPDATE PARTIALLY
@@ -62,7 +76,8 @@ module.exports = {
   addOne,
   getAll,
   findById,
-  update
+  update,
+  deleteOneById
 
 };
 

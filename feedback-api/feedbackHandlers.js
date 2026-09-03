@@ -9,6 +9,11 @@ const getAllFeedbacks = (req, res) => {
 
 const createFeedback = (req, res) => {
   const {sender, message, rating, platform } = req.body;
+  if (!sender || !message || !platform || rating < 1 || rating > 5) {
+    return res.status(400).json({
+      message:":("
+    })
+  }
 
   const newFeedback = Feedback.addOne(sender,message,rating,platform);
 
@@ -20,21 +25,19 @@ const createFeedback = (req, res) => {
 };
 
 const getFeedbackById = (req, res) => {
-  const id = req.params.feedbackId;
-  const feedback = Feedback.findById(id, req.body);
+  const feedbackId = req.params.feedbackId;
+  const feedback = Feedback.findById(feedbackId);
 
   if (feedback) {
     res.json(feedback);
   } else {
-    res.status(404).json({ message: "error" });
+    res.status(404).json({ message: "Feedback not found" });
   }
- 
-  
 };
 
 const updateFeedback = (req, res) => {
-  const id = req.params.feedbackId;
-  const blabla = Feedback.update(id, req.body);
+  const feedbackId = req.params.feedbackId;
+  const blabla = Feedback.update(feedbackId, req.body);
   
   if (blabla) {
     res.json(blabla)
@@ -44,7 +47,16 @@ const updateFeedback = (req, res) => {
 };
 
 const deleteFeedback = (req, res) => {
-  res.json({ message: "Hello from deleteFeedback" });
+  const feedbackId = req.params.feedbackId;
+
+  const isDeleted = Feedback.deleteOneById(feedbackId);
+
+  if (isDeleted) {
+    res.json({ message: "Feedback deleted successfully" });
+  } else {
+    // Handle deletion failure (e.g., pet not found)
+    res.status(404).json({ message: "not found" });
+  }
 };
 
 module.exports = {
