@@ -1,4 +1,4 @@
-let feedbacks = [];
+let feedbacks = []; //here was const !!!!! the whole time ;-;
 let counterId = 1;
 // ADD ONE
 function addOne(sender, message, rating, platform) {
