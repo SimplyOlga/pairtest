@@ -1,4 +1,4 @@
-const feedbacks = [];
+let feedbacks = [];
 let counterId = 1;
 // ADD ONE
 function addOne(sender, message, rating, platform) {

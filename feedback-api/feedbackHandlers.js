@@ -52,7 +52,8 @@ const deleteFeedback = (req, res) => {
   const isDeleted = Feedback.deleteOneById(feedbackId);
 
   if (isDeleted) {
-    res.json({ message: "Feedback deleted successfully" });
+    res.status(204).json({message:"it's gone :("}) //it said to put 204
+    //res.json({ message: "Feedback deleted successfully" });
   } else {
     // Handle deletion failure (e.g., pet not found)
     res.status(404).json({ message: "not found" });
